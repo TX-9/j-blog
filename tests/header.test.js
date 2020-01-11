@@ -11,7 +11,7 @@ beforeEach(async () => {
 });
 
 afterEach(async () => {
-   await browser.close();
+   //await browser.close();
 })
 
 test('the header has the correct text', async () => {
@@ -28,7 +28,7 @@ test('clicking login starts oauth flow', async () => {
    expect(url).toMatch(/accounts\.google\.com/);
 });
 
-test('when signed in, shows logout button', async () => {
+test.only('when signed in, shows logout button', async () => {
    const id = 'test';
    const Buffer = require('safe-buffer').Buffer;
    const sessionObject = {
@@ -44,5 +44,10 @@ test('when signed in, shows logout button', async () => {
    const keygrip = new Keygrip([keys.cookieKey]);
    const sig = keygrip.sign('session=' + sessionString); // format just follows the way library does
 
-   
+   console.log(sessionString, sig);
+
+   await page.setCookie({ name: 'session', value: sessionString});
+   await page.setCookie({ name: 'session.sig', value: sig });
+   await page.goto('localhost:3000');
+
 });
