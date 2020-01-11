@@ -11,7 +11,7 @@ beforeEach(async () => {
 });
 
 afterEach(async () => {
-   //await browser.close();
+   await browser.close();
 })
 
 test('the header has the correct text', async () => {
@@ -28,21 +28,8 @@ test('clicking login starts oauth flow', async () => {
    expect(url).toMatch(/accounts\.google\.com/);
 });
 
-test.only('when signed in, shows logout button', async () => {
+test('when signed in, shows logout button', async () => {
    const id = 'test';
-   const Buffer = require('safe-buffer').Buffer;
-   const sessionObject = {
-      passport: {
-         user: id
-      }
-   };
-   const sessionString = Buffer.from(JSON.stringify(sessionObject))
-       .toString('base64');
-
-   const Keygrip = require('keygrip');
-   const keys = require('../config/keys');
-   const keygrip = new Keygrip([keys.cookieKey]);
-   const sig = keygrip.sign('session=' + sessionString); // format just follows the way library does
 
    console.log(sessionString, sig);
 
@@ -50,7 +37,7 @@ test.only('when signed in, shows logout button', async () => {
    await page.setCookie({name: 'session.sig', value: sig});
    await page.goto('localhost:3000');
    await page.waitFor('a[href="/auth/logout');
-   
+
    const text = await page.$eval('a[href="/auth/logout"]', el => el.innerHTML);
 
    expect(text).toEqual('Logout');
