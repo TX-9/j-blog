@@ -25,8 +25,8 @@ describe('When logged in', async () => {
 
     describe('And using valid inputs', async() => {
         beforeEach(async () => {
-            await page.type('.title input', 'A Title');
-            await page.type('.content input', 'A Content');
+            await page.type('.title input', 'New Title');
+            await page.type('.content input', 'New Content');
             await page.click('form button');
         });
 
@@ -37,7 +37,14 @@ describe('When logged in', async () => {
         });
 
         test('Submitting then saving adds blog to index page', async () => {
+            await page.click('button.green');
+            await page.waitFor('.card');
 
+            const title = await page.getContentsOf('.card-title');
+            const content = await page.getContentsOf('p');
+
+            expect(title).toEqual('New Title');
+            expect(content).toEqual('New Content');
         });
     })
     describe('And using invalid inputs', async() => {
