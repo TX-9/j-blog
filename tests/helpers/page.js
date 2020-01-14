@@ -39,6 +39,32 @@ class CustomPage {
         const text = await page.$eval(query, el => el.innerHTML);
         return text;
     }
+
+    get(path) {
+         return this.page.evaluate((_path) => {
+            return fetch(_path, {
+                method: 'GET',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+        }, path).then(res => res.json());
+    }
+
+    post(path, data) {
+        return this.page.evaluate(
+            (_path, _data) => {
+                return fetch(_path, {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(_data)
+                }).then(res => res.json());
+            }, path, data);
+    }
 }
 
 module.exports = CustomPage;
