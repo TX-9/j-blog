@@ -18,9 +18,9 @@ describe('When logged in', async () => {
    });
 
     test('can see blog create form', async () => {
-        const label = await page.getCotentsOf('form label');
+        const label = await page.getContentsOf('form label');
 
-        expect(label).toEqual('Blog Tittle');
+        expect(label).toEqual('Blog Title');
     });
 
     describe('And using valid inputs', async() => {

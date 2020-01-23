@@ -5,7 +5,8 @@ const userFactory = require('../factories/userFactory');
 class CustomPage {
     static async build() {
         const browser = await puppeteer.launch({
-            headless: true,
+            //headless: true,
+            headless: false,
             args: ['--no-sandbox'] // decrease running time in virtual machine
         });
 
@@ -36,7 +37,7 @@ class CustomPage {
         //await this.page.waitFor('a[href="/auth/logout"]');
     }
 
-    async getCotentsOf(query) {
+    async getContentsOf(query) {
         const text = await this.page.$eval(query, el => el.innerHTML);
         return text;
     }
