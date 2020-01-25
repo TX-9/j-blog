@@ -71,7 +71,9 @@ class CustomPage {
 
     execRequests(actions) {
         return Promise.all(
+            // Array of Promise
             actions.map(({ method, path, data }) => {
+                // this is reference to current page.js
                return this[method](path, data);
             })
         );
