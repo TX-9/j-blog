@@ -38,8 +38,9 @@ class CustomPage {
     }
 
     async getContentsOf(query) {
-        const text = await this.page.$eval(query, el => el.innerHTML);
-        return text;
+        // const text = await this.page.$eval(query, el => el.innerHTML);
+        // return text;
+        return this.page.$eval(query, el => el.innerHTML);
     }
 
     get(path) {
@@ -50,8 +51,8 @@ class CustomPage {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            });
-        }, path).then(res => res.json());
+            }).then(res => res.json());
+        }, path);
     }
 
     post(path, data) {
