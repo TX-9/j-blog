@@ -16,7 +16,7 @@ mongoose.Query.prototype.exec = async function () {
     console.log('ABOUT TO RUN A QUERY');
     console.log(this.getQuery());
     console.log(this.mongooseCollection.name);
-
+    // this is reference to Query
     if (!this.useCache) {
         return exec.apply(this, arguments);
     }
@@ -29,7 +29,7 @@ mongoose.Query.prototype.exec = async function () {
     // If do, return that
     if (cacheValue) {
         const doc = JSON.parse(cacheValue);
-
+        // new this.model(JSON.parse(cacheValue) === new Blog({title:'new', content:'hi});
         return Array.isArray(doc)
             ? doc.map(d => new this.model(d)) : new this.model(doc);
 
