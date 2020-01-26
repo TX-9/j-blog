@@ -10,7 +10,7 @@ const exec = mongoose.Query.prototype.exec;
 mongoose.Query.prototype.cache = async function (options = {}) {
     this.useCache = true;
     this.hashKey = JSON.stringify(options.key || '');
-    return this;
+    return this; //query instance is chainable
 }
 mongoose.Query.prototype.exec = async function () {
     console.log('ABOUT TO RUN A QUERY');
@@ -38,7 +38,7 @@ mongoose.Query.prototype.exec = async function () {
     // Otherwise, issue the query and store the result in redis
     const result = await exec.apply(this, arguments);
 
-    client.hset(this.hashKey, key, JSON.stringify(result), 'EX');
+    client.hset(this.hashKey, key, JSON.stringify(result), 'EX', 10);
 
     return result;
 };
