@@ -34,7 +34,7 @@ class CustomPage {
         await this.page.setCookie({name: 'session.sig', value: sig});
         await this.page.goto('http://localhost:3000/blogs');
         // comment out because logout button does not show up
-        //await this.page.waitFor('a[href="/auth/logout"]');
+        await this.page.waitFor('a[href="/auth/logout"]');
     }
 
     async getContentsOf(query) {
