@@ -1,12 +1,14 @@
 const AWS = require('aws-sdk');
 const keys = require('../config/keys');
-const uuid = require('uuid/v4');
+const uuid = require('uuid/v1');
 const requireLogin = require('../middlewares/requireLogin');
 
 console.log(keys.accessKeyID, ':::::::::::::', keys.secretAccessKey);
 const s3 = new AWS.S3({
     accessKeyId: keys.accessKeyID,
-    secretAccessKey: keys.secretAccessKey
+    secretAccessKey: keys.secretAccessKey,
+    signatureVersion: 'v4',
+    region: 'ca-central-1'
 });
 
 module.exports = app => {
@@ -15,7 +17,7 @@ module.exports = app => {
         console.log(s3);
         s3.getSignedUrl('putObject', {
                 Bucket: 'j-blog-lee',
-                ContentType: 'image/jpeg',
+                ContentType: 'image/*',
                 Key: key
             },
             (err, url) =>
