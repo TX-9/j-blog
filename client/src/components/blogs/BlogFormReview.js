@@ -48,7 +48,7 @@ class BlogFormReview extends Component {
     submitBlog(formValues, this.state.file, history);
   }
     onFileChange(event) {
-      this.setState({ file: event.target.files });
+      this.setState({ file: event.target.files[0] });
     }
 
   render() {
@@ -60,7 +60,7 @@ class BlogFormReview extends Component {
         <h5>Add Image</h5>
         <input
             onChange={this.onFileChange.bind(this)}
-            type="file" accept="image/*"/>
+            type="file" accept="image/*" />
 
         {this.renderButtons()}
       </form>
