@@ -27,7 +27,7 @@
     "i": "^0.3.6",
     "jest": "^22.1.4",
     "migrate-mongoose": "^3.2.2",
-    "mongoose": "^5.8.9",
+    "mongoose": "^5.7.5",
     "nodemon": "^1.11.0",
     "npm": "^6.13.6",
     "passport": "^0.3.2",
